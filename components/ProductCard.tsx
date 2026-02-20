@@ -1,30 +1,33 @@
-import { Product } from '@/sanity.types'
-import { urlFor } from '@/sanity/lib/image'
-import { Flame, StarIcon } from 'lucide-react';
-import Image from 'next/image'
+import { Product } from '@/sanity.types';
+import { urlFor } from '@/sanity/lib/image';
+import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
-import React from 'react'
-import AddToWishlistButton from './AddToWishlistButton';
-import { Title } from './ui/text';
+import { StarIcon } from "@sanity/icons";
+import { Flame } from 'lucide-react';
 import PriceView from './PriceView';
+import { Title } from './ui/text';
+import ProductSideMenu from './ProductSideMenu';
 import AddToCartButton from './AddToCartButton';
 
 const ProductCard = ({ product }: { product: Product }) => {
     return (
-        <div className='text-sm border rounded-md border-darkBlue/20 group bg-white group'>
+        <div className='text-sm border rounded-md border-darkBlue/20 group bg-white'>
             <div className='relative group overflow-hidden bg-shop_light_bg'>
                 {product?.images && (
-                    <Image 
-                        src={urlFor(product?.images[0]).url()} 
-                        alt='ProductImage' 
-                        loading='lazy' 
-                        width={700} 
-                        height={700} 
-                        className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg duration-500 
-                            ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
-                    />
+                    <Link href={`/product/${product?.slug?.current}`}>
+                        <Image 
+                            src={urlFor(product?.images[0]).url()} 
+                            alt='ProductImage'
+                            width={500} 
+                            height={500} 
+                            priority
+                            className={`w-full h-64 object-contain overflow-hidden transition-transform bg-shop_light_bg duration-500 
+                                ${product?.stock !== 0 ? "group-hover:scale-105" : "opacity-50"}`}
+                        />
+                    </Link>
                 )}
-                <AddToWishlistButton product={product} />
+                <ProductSideMenu product={product} />
                 {product?.status  === "sale" && (
                     <p className='absolute top-2 left-2 z-10 text-xs border border-darkColor/50 px-2 rounded-full group-hover:border-lightGreen hover:text-shop_dark_green hoverEffect'>
                         Sale!
@@ -59,7 +62,6 @@ const ProductCard = ({ product }: { product: Product }) => {
                     <div className='flex items-center'>
                     {[...Array(5)].map((_, index) => (
                         <StarIcon
-                            size={12} 
                             key={index} 
                             className={
                                 index < 4 
