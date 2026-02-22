@@ -1,4 +1,4 @@
-import { Product } from '@/sanity.types';
+import type { Product } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import React from 'react';
@@ -10,7 +10,11 @@ import { Title } from './ui/text';
 import ProductSideMenu from './ProductSideMenu';
 import AddToCartButton from './AddToCartButton';
 
-const ProductCard = ({ product }: { product: Product }) => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <div className='text-sm border rounded-md border-darkBlue/20 group bg-white'>
             <div className='relative group overflow-hidden bg-shop_light_bg'>
