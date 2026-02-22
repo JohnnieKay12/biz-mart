@@ -33,7 +33,7 @@
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
-    "next": "^15.2.3",
+    "next": "^15.3.0",
     "next-sanity": "^9.12.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
