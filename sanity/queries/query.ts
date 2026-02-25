@@ -81,6 +81,53 @@ const OTHERS_BLOG_QUERY = defineQuery(`*[
     "slug": slug.current,
   }
 }`);
+
+
+const PRODUCTS_BY_CATEGORY = defineQuery(`
+  *[
+    _type == "product" &&
+    references(*[_type=="category" && slug.current==$slug]._id)
+  ] | order(name asc){
+    ...,
+    "categories": categories[]->{
+      title,
+      "slug": slug.current
+    }
+  }
+`);
+
+const FASHION_PRODUCTS = defineQuery(`
+  *[
+    _type == "product" &&
+    references(*[_type=="category" && slug.current=="fashion"]._id)
+  ] | order(name asc){
+    ...,
+    "categories": categories[]->title
+  }
+`);
+
+const SHOES_PRODUCTS = defineQuery(`
+  *[
+    _type == "product" &&
+    references(*[_type=="category" && slug.current=="shoes"]._id)
+  ] | order(name asc){
+    ...,
+    "categories": categories[]->title
+  }
+`);
+
+const PRODUCTS_BY_GENDER = defineQuery(`
+  *[
+    _type == "product" &&
+    gender == $gender &&
+    references(*[_type=="category" && slug.current==$category]._id)
+  ] | order(name asc){
+    ...,
+    "categories": categories[]->title
+  }
+`);
+
+
 export {
   BRANDS_QUERY,
   LATEST_BLOG_QUERY,
@@ -92,4 +139,9 @@ export {
   SINGLE_BLOG_QUERY,
   BLOG_CATEGORIES,
   OTHERS_BLOG_QUERY,
+
+  PRODUCTS_BY_CATEGORY,
+  FASHION_PRODUCTS,
+  SHOES_PRODUCTS,
+  PRODUCTS_BY_GENDER,
 };

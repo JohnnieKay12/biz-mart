@@ -11,7 +11,7 @@ import ProductSideMenu from './ProductSideMenu';
 import AddToCartButton from './AddToCartButton';
 
 interface ProductCardProps {
-  product: Product;
+    product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {

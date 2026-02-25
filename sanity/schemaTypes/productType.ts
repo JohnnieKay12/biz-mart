@@ -36,7 +36,7 @@ export const productType = defineType({
     }),
     defineField({
       name: "price",
-      title: "Price",
+      title: "Price (₦)",
       type: "number",
       validation: (Rule) => Rule.required().min(0),
     }),
@@ -44,7 +44,7 @@ export const productType = defineType({
       name: "discount",
       title: "Discount Percentage %",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      validation: (Rule) => Rule.min(0).max(100),
     }),
     defineField({
       name: "categories",
@@ -85,11 +85,26 @@ export const productType = defineType({
         list: [
           { title: "Gadget", value: "gadget" },
           { title: "Appliances", value: "appliances" },
-          { title: "Refrigerators", value: "refrigerators" },
+          { title: "Fashion", value: "fashion" },
+          { title: "Shoes", value: "shoes" },
           { title: "Others", value: "others" },
         ],
       },
     }),
+
+    defineField({
+      name: "gender",
+      title: "Gender (Fashion & Shoes only)",
+      type: "string",
+      options: {
+        list: [
+          { title: "Men", value: "men" },
+          { title: "Women", value: "women" },
+          { title: "Unisex", value: "unisex" },
+        ],
+      },
+    }),
+
     defineField({
       name: "isFeatured",
       title: "Featured Product",
@@ -108,8 +123,10 @@ export const productType = defineType({
       const { title, subtitle, media } = selection;
       const image = media && media[0];
       return {
-        title: title,
-        subtitle: `$${subtitle}`,
+        title,
+        subtitle: subtitle
+        ? `₦${subtitle.toLocaleString()}`
+        : "₦0",
         media: image,
       };
     },

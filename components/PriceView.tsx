@@ -1,7 +1,7 @@
-import React from 'react';
+import { twMerge } from 'tailwind-merge'
 import PriceFormatter from './PriceFormatter';
 import { cn } from '@/lib/utils';
-// import { twMerge } from 'tailwind-merge';
+
 interface Props {
     price: number | undefined;
     discount: number | undefined;
